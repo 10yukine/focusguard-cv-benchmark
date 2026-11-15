@@ -193,7 +193,9 @@ if __name__ == "__main__":
     parser.add_argument("--benchmark", type=int, metavar="N", help="Time all models on N frames, then exit")
     args = parser.parse_args()
 
-    if args.benchmark:
+    if args.benchmark is not None:
+        if args.benchmark <= 0:
+            parser.error("--benchmark must be greater than zero")
         run_benchmark(args.source, args.benchmark)
     else:
         run_live(args.source, args.video)
